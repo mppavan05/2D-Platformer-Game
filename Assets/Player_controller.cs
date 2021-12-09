@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player_controller : MonoBehaviour
 {
-    public Animator animator;
+    public Animator animator , Animator;
     private void Awake()
     {
         Debug.Log(" player controller awake ");
@@ -26,5 +26,8 @@ public class Player_controller : MonoBehaviour
             scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
+
+        
+
     }
 }
