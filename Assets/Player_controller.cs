@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player_controller : MonoBehaviour
 {
-    public Animator animator;
+    public Animator animator , Animator;
     private void Awake()
     {
         Debug.Log(" player controller awake ");
