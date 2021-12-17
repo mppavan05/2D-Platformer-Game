@@ -249,8 +249,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreController: {fileID: 0}
   animator: {fileID: 6097446432449132216}
+  levelCompletController: {fileID: 0}
   speed: 5
-  jump: 200
+  jump: 100
   Heart1: {fileID: 0}
   Heart2: {fileID: 0}
   Heart3: {fileID: 0}
