@@ -1,13 +1,34 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player_controller : MonoBehaviour
 {
+    public ScoreController scoreController;
     public Animator animator;
+    public LevelCompletController levelCompletController;
     
     public float speed;
     public float jump;
+
+    // for heart and game over 
+
+    public GameObject Heart1, Heart2, Heart3, gameOver;
+    public static int health;
+
+
+    private void Start()
+    {
+        health = 3;
+        Heart1.gameObject.SetActive(true);
+        Heart2.gameObject.SetActive(true);
+        Heart3 .gameObject.SetActive(true);
+        //gameOver.gameObject.SetActive(false);
+    }
+
+   
 
 
     private Rigidbody2D rigi2D;
@@ -16,6 +37,23 @@ public class Player_controller : MonoBehaviour
         Debug.Log(" player controller awake ");
         rigi2D = gameObject.GetComponent<Rigidbody2D>();
       // rigi2D = GetComponent<Animator>();
+    }
+
+    public void KillPlayer()
+    {
+        Debug.Log("player was killed by enemy");
+        //Destroy(gameObject);
+        levelCompletController.PlayerDied();
+        this.enabled = false;
+       // ReloadLevel();
+    }
+
+    
+
+    public void PickUpKey()
+    {
+        Debug.Log("player picked up the key");
+        scoreController.IncreaseScore(10);
     }
 
     private void Update()
@@ -33,7 +71,40 @@ public class Player_controller : MonoBehaviour
             rigi2D.AddForce(new Vector2(0f , jump), ForceMode2D.Force);
 
         }
+        // update is called onces per frame
+        // for heart and gameover function
 
+        if(health > 3)
+            health = 3;
+
+        switch (health)
+        {
+            case 3:
+                Heart1.gameObject.SetActive(true);
+                Heart2.gameObject.SetActive(true);
+                Heart3.gameObject.SetActive(true);
+                break;
+            case 2:
+                Heart1.gameObject.SetActive(true);
+                Heart2.gameObject.SetActive(true);
+                Heart3.gameObject.SetActive(false);
+                break;
+            case 1:
+                Heart1.gameObject.SetActive(true);
+                Heart2.gameObject.SetActive(false);
+                Heart3.gameObject.SetActive(false);
+                break;
+            case 0:
+                Heart1.gameObject.SetActive(false);
+                Heart2.gameObject.SetActive(false);
+                Heart3.gameObject.SetActive(false);
+               // gameOver.gameObject.SetActive(true);
+               // Time.timeScale = 0;
+                KillPlayer();
+                break;
+
+
+        }
     }
     private void MoveCharacter(float horizontal, float vertical)
     {
